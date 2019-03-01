@@ -1,18 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 
-const recipesQuery = gql`
-  query recipes($vegetarian: Boolean!) {
-    recipes(vegetarian: $vegetarian) {
-      id
-      title
-    }
-  }
-`;
+import recipesQuery from './recipesQuery';
 
 const Recipes = () => {
-  const [isVegetarian, setVegetarian] = useState(false);
+  const [vegetarian, setVegetarian] = useState(false);
   function updateVegetarian({ target: { checked } }) {
     setVegetarian(checked);
   }
@@ -22,12 +14,12 @@ const Recipes = () => {
       <label>
         <input
           type="checkbox"
-          checked={isVegetarian}
+          checked={vegetarian}
           onChange={updateVegetarian}
         />
         <span>vegetarian</span>
       </label>
-      <Query query={recipesQuery} variables={{ vegetarian: isVegetarian }}>
+      <Query query={recipesQuery} variables={{ vegetarian }}>
         {({ data, loading, error }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Something went wrong</p>;
