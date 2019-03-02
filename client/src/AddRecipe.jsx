@@ -24,7 +24,7 @@ const AddRecipe = () => {
         { query: recipesQuery, variables: { vegetarian: true } },
         { query: recipesQuery, variables: { vegetarian: false } }
       ]}
-      awaitRefetchQueries={true}
+      awaitRefetchQueries
     >
       {(addRecipe, { loading, error }) => (
         <form
